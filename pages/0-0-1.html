@@ -1,0 +1,17 @@
+<main>
+<h1>API Reference <span class="sub">[0,0,1]</span></h1>
+<h2>REST (BlockArray)</h2>
+<table>
+<tr><th>Method</th><th>Path</th><th>Description</th></tr>
+<tr><td>POST</td><td>/template/create</td><td>Create array</td></tr>
+<tr><td>GET</td><td>/value?x,y,z</td><td>Get value</td></tr>
+<tr><td>POST</td><td>/value</td><td>Set value</td></tr>
+<tr><td>GET</td><td>/status</td><td>System status</td></tr>
+</table>
+<h2>WebSocket (Cube)</h2>
+<pre>ws://host:6789
+{action: "initialize", cube_id: "c1"}
+{action: "process", vertex: "NEU", text: "..."}
+{action: "connect", source: "NEU", target: "SWD"}
+{action: "status"}</pre>
+</main>

@@ -2,10 +2,25 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta http-equiv="refresh" content="0;url=docs/index.html">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>LookingGlass - Konomi Systems</title>
+<link rel="stylesheet" href="assets/style.css">
 </head>
 <body>
-<p><a href="docs/index.html">Enter LookingGlass</a></p>
+<header id="hdr">
+<span class="logo">LookingGlass</span>
+<span id="coord" class="coord">[0,0,0]</span>
+</header>
+<nav id="nav">
+<a href="#0,0,0" data-xyz="0,0,0">Home</a>
+<a href="#1,0,0" data-xyz="1,0,0">Arch</a>
+<a href="#2,0,0" data-xyz="2,0,0">Std</a>
+<a href="#0,1,0" data-xyz="0,1,0">Frumkin</a>
+<a href="#1,1,0" data-xyz="1,1,0">Analysis</a>
+<a href="#2,1,0" data-xyz="2,1,0">2026</a>
+<a href="#0,0,1" data-xyz="0,0,1">API</a>
+</nav>
+<div id="content"><main><p>Initializing cube...</p></main></div>
+<script src="assets/router.js"></script>
 </body>
 </html>

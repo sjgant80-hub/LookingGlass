@@ -8,7 +8,9 @@ const CUBE_MAP = {
   '0,0,0':'Home','1,0,0':'Architecture','2,0,0':'Standards',
   '0,1,0':'Frumkin','1,1,0':'Analysis','2,1,0':'2026 Predictions',
   '0,2,0':'Commodities','1,2,0':'Asia-Pacific','2,2,0':'Emerging',
-  '0,0,1':'API','1,1,1':'Americas','2,1,1':'Europe'
+  '0,0,1':'API','1,0,1':'G20','2,0,1':'BRICS+',
+  '0,1,1':'Global Map','1,1,1':'Americas','2,1,1':'Europe',
+  '0,2,1':'LatAm+Carib','1,2,1':'SE Asia+Oceania','2,2,1':'Africa+MENA'
 };
 
 async function loadCube(xyz) {

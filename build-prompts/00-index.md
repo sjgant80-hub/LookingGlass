@@ -9,3 +9,8 @@ Konomi Systems - Build Specification Index
 - 05: System Build Spec
 - 06: System APIs
 - 07: Enterprise Architecture
+- 08: Analysis Methodology
+- 09: Data 2023
+- 10: Data 2024
+- 11: Data 2025
+- 12: Data 2026 Current

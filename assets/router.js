@@ -25,7 +25,12 @@ const PAGES = {
   ukraine:{n:'Ukraine War',xyz:'2,0,3'},taiwan:{n:'Taiwan Strait',xyz:'0,1,3'},
   trade:{n:'Trade War',xyz:'1,1,3'},sahel:{n:'Sahel Crisis',xyz:'2,1,3'},
   debt:{n:'Debt + Dollar',xyz:'0,2,3'},chips:{n:'Chips + AI',xyz:'1,2,3'},
-  climate:{n:'Energy + Climate',xyz:'2,2,3'}
+  climate:{n:'Energy + Climate',xyz:'2,2,3'},
+  china:{n:'China Deep Dive',xyz:'0,0,4'},japan:{n:'Japan + BOJ',xyz:'1,0,4'},
+  uspol:{n:'US Domestic',xyz:'2,0,4'},demog:{n:'Demographics',xyz:'0,1,4'},
+  cbanks:{n:'Central Banks',xyz:'1,1,4'},eupol:{n:'EU Politics',xyz:'2,1,4'},
+  failed:{n:'Failed States',xyz:'0,2,4'},food:{n:'Food + Water',xyz:'1,2,4'},
+  digital:{n:'Digital Finance',xyz:'2,2,4'}
 };
 
 // expose for 3D module

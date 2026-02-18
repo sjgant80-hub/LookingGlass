@@ -30,7 +30,12 @@ const PAGES = {
   uspol:{n:'US Domestic',xyz:'2,0,4'},demog:{n:'Demographics',xyz:'0,1,4'},
   cbanks:{n:'Central Banks',xyz:'1,1,4'},eupol:{n:'EU Politics',xyz:'2,1,4'},
   failed:{n:'Failed States',xyz:'0,2,4'},food:{n:'Food + Water',xyz:'1,2,4'},
-  digital:{n:'Digital Finance',xyz:'2,2,4'}
+  digital:{n:'Digital Finance',xyz:'2,2,4'},
+  india:{n:'India Deep Dive',xyz:'0,0,5'},korea:{n:'South Korea',xyz:'1,0,5'},
+  russia:{n:'Russia Deep Dive',xyz:'2,0,5'},minerals:{n:'Critical Minerals',xyz:'0,1,5'},
+  migration:{n:'Migration',xyz:'1,1,5'},security:{n:'Security Architecture',xyz:'2,1,5'},
+  saudi:{n:'Saudi + OPEC+',xyz:'0,2,5'},brazil:{n:'Brazil Deep Dive',xyz:'1,2,5'},
+  backtest:{n:'Frumkin Backtesting',xyz:'2,2,5'}
 };
 
 // expose for 3D module

@@ -38,7 +38,7 @@ async function loadCube(xyz) {
   }
 }
 
-function onHash() { loadCube(location.hash.slice(1)); }
+function onHash() { loadCube(decodeURIComponent(location.hash.slice(1))); }
 window.addEventListener('hashchange', onHash);
 window.addEventListener('DOMContentLoaded', () => {
   if (!location.hash) location.hash = '#0,0,0';

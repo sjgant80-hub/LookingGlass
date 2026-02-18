@@ -1,46 +1,53 @@
-// Cube Router - (x,y,z) page addressing
+// Cube Router - slug-based with (x,y,z) metadata
 const content = document.getElementById('content');
 const nav = document.getElementById('nav');
 const coordEl = document.getElementById('coord');
 const cache = {};
 
-const CUBE_MAP = {
-  '0,0,0':'Home','1,0,0':'Architecture','2,0,0':'Standards',
-  '0,1,0':'Frumkin','1,1,0':'Analysis','2,1,0':'2026 Predictions',
-  '0,2,0':'Commodities','1,2,0':'Asia-Pacific','2,2,0':'Emerging',
-  '0,0,1':'API','1,0,1':'G20','2,0,1':'BRICS+',
-  '0,1,1':'Global Map','1,1,1':'Americas','2,1,1':'Europe',
-  '0,2,1':'LatAm+Carib','1,2,1':'SE Asia+Oceania','2,2,1':'Africa+MENA',
-  '0,0,2':'Contagion Risk','1,0,2':'Cascades','2,0,2':'Stabilizers',
-  '0,1,2':'2027-2031','1,1,2':'2032-2036','2,1,2':'Decision Makers',
-  '0,2,2':'Entropy','1,2,2':'Timeline Forks','2,2,2':'2036 Endgame',
-  '0,0,3':'Iran Crisis','1,0,3':'Hormuz Cascade'
+// slug → {name, xyz, file}
+const PAGES = {
+  home:{n:'Home',xyz:'0,0,0'},arch:{n:'Architecture',xyz:'1,0,0'},
+  std:{n:'Standards',xyz:'2,0,0'},frumkin:{n:'Frumkin',xyz:'0,1,0'},
+  analysis:{n:'Analysis',xyz:'1,1,0'},pred2026:{n:'2026',xyz:'2,1,0'},
+  cmdty:{n:'Commodities',xyz:'0,2,0'},apac:{n:'Asia-Pacific',xyz:'1,2,0'},
+  emerging:{n:'Emerging',xyz:'2,2,0'},api:{n:'API',xyz:'0,0,1'},
+  g20:{n:'G20',xyz:'1,0,1'},brics:{n:'BRICS+',xyz:'2,0,1'},
+  global:{n:'Global Map',xyz:'0,1,1'},americas:{n:'Americas',xyz:'1,1,1'},
+  europe:{n:'Europe',xyz:'2,1,1'},latam:{n:'LatAm+Carib',xyz:'0,2,1'},
+  seasia:{n:'SE Asia',xyz:'1,2,1'},afrmena:{n:'Africa+MENA',xyz:'2,2,1'},
+  risk:{n:'Contagion',xyz:'0,0,2'},cascade:{n:'Cascades',xyz:'1,0,2'},
+  anchors:{n:'Stabilizers',xyz:'2,0,2'},near:{n:'2027-2031',xyz:'0,1,2'},
+  far:{n:'2032-2036',xyz:'1,1,2'},deciders:{n:'Deciders',xyz:'2,1,2'},
+  entropy:{n:'Entropy',xyz:'0,2,2'},forks:{n:'Forks',xyz:'1,2,2'},
+  endgame:{n:'2036 Endgame',xyz:'2,2,2'},
+  iran:{n:'Iran Crisis',xyz:'0,0,3'},hormuz:{n:'Hormuz Cascade',xyz:'1,0,3'}
 };
 
-async function loadCube(xyz) {
-  if (!xyz || !CUBE_MAP[xyz]) xyz = '0,0,0';
-  coordEl.textContent = '[' + xyz + ']';
+async function loadPage(slug) {
+  if (!slug || !PAGES[slug]) slug = 'home';
+  const p = PAGES[slug];
+  coordEl.textContent = '[' + p.xyz + ']';
   nav.querySelectorAll('a').forEach(a => {
-    a.classList.toggle('active', a.dataset.xyz === xyz);
+    a.classList.toggle('active', a.dataset.slug === slug);
   });
-  document.title = CUBE_MAP[xyz] + ' [' + xyz + '] - LookingGlass';
-  const file = xyz.replace(/,/g, '-');
-  if (cache[file]) { content.innerHTML = cache[file]; return; }
+  document.title = p.n + ' [' + p.xyz + '] - LookingGlass';
+  const file = p.xyz.replace(/,/g, '-');
+  if (cache[slug]) { content.innerHTML = cache[slug]; return; }
   try {
     const r = await fetch('pages/' + file + '.html');
     if (!r.ok) throw new Error(r.status);
     const html = await r.text();
-    cache[file] = html;
+    cache[slug] = html;
     content.innerHTML = html;
   } catch (e) {
     content.innerHTML = '<main><h1>Void</h1>'
-      + '<p>No cube at [' + xyz + ']</p></main>';
+      + '<p>No cube at [' + p.xyz + ']</p></main>';
   }
 }
 
-function onHash() { loadCube(decodeURIComponent(location.hash.slice(1))); }
+function onHash() { loadPage(location.hash.slice(1)); }
 window.addEventListener('hashchange', onHash);
 window.addEventListener('DOMContentLoaded', () => {
-  if (!location.hash) location.hash = '#0,0,0';
+  if (!location.hash) location.hash = '#home';
   else onHash();
 });

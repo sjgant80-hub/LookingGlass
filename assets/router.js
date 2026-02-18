@@ -13,7 +13,8 @@ const CUBE_MAP = {
   '0,2,1':'LatAm+Carib','1,2,1':'SE Asia+Oceania','2,2,1':'Africa+MENA',
   '0,0,2':'Contagion Risk','1,0,2':'Cascades','2,0,2':'Stabilizers',
   '0,1,2':'2027-2031','1,1,2':'2032-2036','2,1,2':'Decision Makers',
-  '0,2,2':'Entropy','1,2,2':'Timeline Forks','2,2,2':'2036 Endgame'
+  '0,2,2':'Entropy','1,2,2':'Timeline Forks','2,2,2':'2036 Endgame',
+  '0,0,3':'Iran Crisis','1,0,3':'Hormuz Cascade'
 };
 
 async function loadCube(xyz) {

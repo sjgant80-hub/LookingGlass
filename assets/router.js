@@ -36,7 +36,12 @@ const PAGES = {
   migration:{n:'Migration',xyz:'1,1,5'},security:{n:'Security Architecture',xyz:'2,1,5'},
   saudi:{n:'Saudi + OPEC+',xyz:'0,2,5'},brazil:{n:'Brazil Deep Dive',xyz:'1,2,5'},
   backtest:{n:'Frumkin Backtesting',xyz:'2,2,5'},
-  italy:{n:'Italy Deep Dive',xyz:'0,0,6'}
+  italy:{n:'Italy Deep Dive',xyz:'0,0,6'},
+  h2025:{n:'κ 2025',xyz:'0,0,7'},h2024:{n:'κ 2024',xyz:'1,0,7'},
+  h2023:{n:'κ 2023',xyz:'2,0,7'},h2022:{n:'κ 2022',xyz:'0,1,7'},
+  h2021:{n:'κ 2021',xyz:'1,1,7'},h2020:{n:'κ 2020',xyz:'2,1,7'},
+  h2019:{n:'κ 2019',xyz:'0,2,7'},h2018:{n:'κ 2018',xyz:'1,2,7'},
+  h2016:{n:'κ 2016-17',xyz:'2,2,7'}
 };
 
 // expose for 3D module

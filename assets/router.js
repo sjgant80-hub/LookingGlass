@@ -35,7 +35,8 @@ const PAGES = {
   russia:{n:'Russia Deep Dive',xyz:'2,0,5'},minerals:{n:'Critical Minerals',xyz:'0,1,5'},
   migration:{n:'Migration',xyz:'1,1,5'},security:{n:'Security Architecture',xyz:'2,1,5'},
   saudi:{n:'Saudi + OPEC+',xyz:'0,2,5'},brazil:{n:'Brazil Deep Dive',xyz:'1,2,5'},
-  backtest:{n:'Frumkin Backtesting',xyz:'2,2,5'}
+  backtest:{n:'Frumkin Backtesting',xyz:'2,2,5'},
+  italy:{n:'Italy Deep Dive',xyz:'0,0,6'}
 };
 
 // expose for 3D module

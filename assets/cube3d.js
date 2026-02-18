@@ -26,7 +26,7 @@ export function init(canvas) {
   scene.fog = new THREE.FogExp2(BG, 0.12);
 
   camera = new THREE.PerspectiveCamera(50, canvas.clientWidth / canvas.clientHeight, 0.1, 100);
-  camera.position.set(5, 4, 5);
+  camera.position.set(6, 5, 6);
 
   renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
   renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
@@ -65,43 +65,65 @@ export function init(canvas) {
 
 // ── wireframe cube shell ──────────────────────────────
 function buildWireframe() {
-  // outer 3x3x3 bounding wireframe
-  const geo = new THREE.BoxGeometry(2, 2, 2);
+  // Derive bounds from actual PAGES data
+  const pages = getPages();
+  const coords = Object.values(pages).map(p => p.xyz.split(',').map(Number));
+  const maxZ = coords.reduce((m, c) => Math.max(m, c[2]), 0);
+
+  // outer bounding wireframe: 3 wide × 3 deep × (maxZ+1) tall
+  const height = maxZ; // spans from z=0 (-1 mapped) to z=maxZ
+  const geo = new THREE.BoxGeometry(2, height, 2);
   const edges = new THREE.EdgesGeometry(geo);
   const mat = new THREE.LineBasicMaterial({ color: ACCENT, opacity: 0.25, transparent: true });
   const wire = new THREE.LineSegments(edges, mat);
+  wire.position.y = (maxZ - 2) / 2; // center vertically across all layers
   cubeGroup.add(wire);
 
   // inner grid lines along each axis
   const lineMat = new THREE.LineBasicMaterial({ color: GRID_COL, opacity: 0.4, transparent: true });
-  for (let axis = 0; axis < 3; axis++) {
+  for (let i = 0; i <= 2; i++) {
+    for (let j = 0; j <= 2; j++) {
+      // vertical lines (along z/y axis)
+      const vPts = [
+        new THREE.Vector3(i - 1, -1, j - 1),
+        new THREE.Vector3(i - 1, maxZ - 1, j - 1)
+      ];
+      const vg = new THREE.BufferGeometry().setFromPoints(vPts);
+      cubeGroup.add(new THREE.Line(vg, lineMat));
+    }
+  }
+  // horizontal grid lines per z-layer
+  for (let z = 0; z <= maxZ; z++) {
     for (let i = 0; i <= 2; i++) {
-      for (let j = 0; j <= 2; j++) {
-        const pts = [];
-        for (let k = 0; k <= 2; k++) {
-          const v = [0, 0, 0];
-          if (axis === 0) { v[0] = k - 1; v[1] = i - 1; v[2] = j - 1; }
-          if (axis === 1) { v[0] = i - 1; v[1] = k - 1; v[2] = j - 1; }
-          if (axis === 2) { v[0] = i - 1; v[1] = j - 1; v[2] = k - 1; }
-          pts.push(new THREE.Vector3(v[0], v[1], v[2]));
-        }
-        const g = new THREE.BufferGeometry().setFromPoints(pts);
-        cubeGroup.add(new THREE.Line(g, lineMat));
-      }
+      // x-direction lines
+      const xPts = [
+        new THREE.Vector3(-1, z - 1, i - 1),
+        new THREE.Vector3(1, z - 1, i - 1)
+      ];
+      cubeGroup.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(xPts), lineMat));
+      // z-direction (depth) lines
+      const zPts = [
+        new THREE.Vector3(i - 1, z - 1, -1),
+        new THREE.Vector3(i - 1, z - 1, 1)
+      ];
+      cubeGroup.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(zPts), lineMat));
     }
   }
 }
 
 // ── contour planes on each z-layer ───────────────────
 function buildContourPlanes() {
-  const layers = [0, 1, 2, 3]; // z=0,1,2 + the extra z=3 for Iran/Hormuz
-  layers.forEach(z => {
-    const zPos = z - 1; // center at origin: z=0→-1, z=1→0, z=2→1, z=3→2
+  const pages = getPages();
+  const coords = Object.values(pages).map(p => p.xyz.split(',').map(Number));
+  const maxZ = coords.reduce((m, c) => Math.max(m, c[2]), 0);
+
+  for (let z = 0; z <= maxZ; z++) {
+    const zPos = z - 1;
     const geo = new THREE.PlaneGeometry(2, 2, 8, 8);
     const mat = new THREE.MeshBasicMaterial({
       color: ACCENT,
       wireframe: true,
-      opacity: z === 3 ? 0.06 : 0.04,
+      opacity: Math.max(0.02, 0.06 - z * 0.005),
       transparent: true,
       side: THREE.DoubleSide
     });
@@ -109,7 +131,7 @@ function buildContourPlanes() {
     plane.rotation.x = -Math.PI / 2;
     plane.position.y = zPos;
     cubeGroup.add(plane);
-  });
+  }
 }
 
 // ── node spheres ─────────────────────────────────────

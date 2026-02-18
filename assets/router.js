@@ -3,6 +3,7 @@ const content = document.getElementById('content');
 const nav = document.getElementById('nav');
 const coordEl = document.getElementById('coord');
 const cache = {};
+let cube3d = null;
 
 // slug → {name, xyz, file}
 const PAGES = {
@@ -23,6 +24,9 @@ const PAGES = {
   iran:{n:'Iran Crisis',xyz:'0,0,3'},hormuz:{n:'Hormuz Cascade',xyz:'1,0,3'}
 };
 
+// expose for 3D module
+window.__LG_PAGES = PAGES;
+
 async function loadPage(slug) {
   if (!slug || !PAGES[slug]) slug = 'home';
   const p = PAGES[slug];
@@ -31,6 +35,7 @@ async function loadPage(slug) {
     a.classList.toggle('active', a.dataset.slug === slug);
   });
   document.title = p.n + ' [' + p.xyz + '] - LookingGlass';
+  if (cube3d) cube3d.setActive(slug);
   const file = p.xyz.replace(/,/g, '-');
   if (cache[slug]) { content.innerHTML = cache[slug]; return; }
   try {
@@ -51,3 +56,34 @@ window.addEventListener('DOMContentLoaded', () => {
   if (!location.hash) location.hash = '#home';
   else onHash();
 });
+
+// ── 3D cube toggle ──────────────────────────────────
+const toggleBtn = document.getElementById('cube-toggle');
+const overlay = document.getElementById('cube-overlay');
+const cubeCanvas = document.getElementById('cube-canvas');
+let cubeOpen = false;
+
+if (toggleBtn && overlay && cubeCanvas) {
+  toggleBtn.addEventListener('click', async () => {
+    cubeOpen = !cubeOpen;
+    overlay.classList.toggle('open', cubeOpen);
+    toggleBtn.textContent = cubeOpen ? '[x] Close' : '[3D] Cube';
+    if (cubeOpen && !cube3d) {
+      const mod = await import('./cube3d.js');
+      cube3d = mod;
+      cube3d.init(cubeCanvas);
+      cube3d.setActive(location.hash.slice(1) || 'home');
+    }
+    if (cubeOpen && cube3d) {
+      const r = overlay.getBoundingClientRect();
+      cube3d.resize(r.width, r.height);
+    }
+  });
+
+  window.addEventListener('resize', () => {
+    if (cubeOpen && cube3d) {
+      const r = overlay.getBoundingClientRect();
+      cube3d.resize(r.width, r.height);
+    }
+  });
+}

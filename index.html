@@ -5,11 +5,15 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>LookingGlass - Konomi Systems</title>
 <link rel="stylesheet" href="assets/style.css">
+<script type="importmap">
+{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"}}
+</script>
 </head>
 <body>
 <header id="hdr">
 <span class="logo">LookingGlass</span>
 <span id="coord" class="coord">[0,0,0]</span>
+<button id="cube-toggle" class="cube-btn">[3D] Cube</button>
 </header>
 <nav id="nav">
 <span class="tag">Core</span>
@@ -48,6 +52,7 @@
 <a href="#iran" data-slug="iran">Iran</a>
 <a href="#hormuz" data-slug="hormuz">Hormuz</a>
 </nav>
+<div id="cube-overlay"><canvas id="cube-canvas"></canvas></div>
 <div id="content"><main><p>Initializing cube...</p></main></div>
 <script src="assets/router.js"></script>
 </body>

@@ -21,7 +21,11 @@ const PAGES = {
   far:{n:'2032-2036',xyz:'1,1,2'},deciders:{n:'Deciders',xyz:'2,1,2'},
   entropy:{n:'Entropy',xyz:'0,2,2'},forks:{n:'Forks',xyz:'1,2,2'},
   endgame:{n:'2036 Endgame',xyz:'2,2,2'},
-  iran:{n:'Iran Crisis',xyz:'0,0,3'},hormuz:{n:'Hormuz Cascade',xyz:'1,0,3'}
+  iran:{n:'Iran Crisis',xyz:'0,0,3'},hormuz:{n:'Hormuz Cascade',xyz:'1,0,3'},
+  ukraine:{n:'Ukraine War',xyz:'2,0,3'},taiwan:{n:'Taiwan Strait',xyz:'0,1,3'},
+  trade:{n:'Trade War',xyz:'1,1,3'},sahel:{n:'Sahel Crisis',xyz:'2,1,3'},
+  debt:{n:'Debt + Dollar',xyz:'0,2,3'},chips:{n:'Chips + AI',xyz:'1,2,3'},
+  climate:{n:'Energy + Climate',xyz:'2,2,3'}
 };
 
 // expose for 3D module
